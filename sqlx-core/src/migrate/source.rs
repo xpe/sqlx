@@ -46,10 +46,9 @@ impl<'s> MigrationSource<'s> for &'s Path {
                 let version: i64 = parts[0].parse()?;
 
                 let migration_type = MigrationType::from_filename(parts[1]);
-                // remove the `.sql` and replace `_` with ` `
+                // remove the `.sql`
                 let description = parts[1]
                     .trim_end_matches(migration_type.suffix())
-                    .replace('_', " ")
                     .to_owned();
 
                 let sql = fs::read_to_string(&entry.path()).await?;
